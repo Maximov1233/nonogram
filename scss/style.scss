@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box {
+    width: 404px;
+    height: 400px;
+    border: 3px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    &-cell {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #C1C5D1;
+        // background: #334861;
+        z-index: -1;
+    }
+}
