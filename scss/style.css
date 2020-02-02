@@ -21,8 +21,8 @@ body .container {
 }
 
 body .container .box {
-  width: 760px;
-  height: 760px;
+  width: 520px;
+  height: 520px;
   border: 3px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -39,15 +39,14 @@ body .container .box-2 {
 }
 
 body .container .box-cell {
-  width: 150px;
-  height: 150px;
+  width: 50px;
+  height: 50px;
   border: 1px solid #C1C5D1;
-  z-index: -1;
 }
 
 body .container .box-number {
-  width: 130px;
-  height: 85px;
+  width: 100px;
+  height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -59,7 +58,7 @@ body .container .box-number {
           align-items: center;
   background: #EBEFF8;
   border-radius: 5px;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 body .container .box-numbers__left {
@@ -83,15 +82,62 @@ body .container .box-numbers__top {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  padding-left: 150px;
+  padding-left: 105px;
 }
 
 body .container .box-numbers__top .box-number {
-  width: 85px;
-  height: 130px;
+  width: 30px;
+  height: 100px;
 }
 
 body .container .box-numbers__top .box-number p {
-  word-break: break-word;
+  width: .7rem;
+  word-wrap: break-word;
+}
+
+body .container .switcher {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container .switcher .switch {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 300px;
+  height: 140px;
+  margin-top: 30px;
+  border-radius: 65px;
+  border: 3px solid #E8E9EE;
+  background: #F2F3F7;
+}
+
+body .container .switcher .switch .cross-wrap, body .container .switcher .switch .block-wrap {
+  width: 160px;
+  height: 160px;
+  background: white;
+  border-radius: 50%;
+}
+
+body .container .switcher .switch input {
+  display: none;
+}
+
+body .container .switcher .switch input:checked + .cross {
+  background: #000;
 }
 /*# sourceMappingURL=style.css.map */

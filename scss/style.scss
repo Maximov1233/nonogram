@@ -12,8 +12,8 @@ body {
         align-items: center;
 
         .box {
-            width: 760px;
-            height: 760px;
+            width: 520px;
+            height: 520px;
             border: 3px solid black;
             display: flex;
             flex-wrap: wrap;
@@ -23,22 +23,21 @@ body {
             }
 
             &-cell {
-                width: 150px;
-                height: 150px;
+                width: 50px;
+                height: 50px;
                 border: 1px solid #C1C5D1;
                 // background: #334861;
-                z-index: -1;
             }
 
             &-number {
-                width: 130px;
-                height: 85px;
+                width: 100px;
+                height: 30px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 background: #EBEFF8;
                 border-radius: 5px;
-                font-size: 30px;
+                font-size: 20px;
 
                 &s__left {
                     display: flex;
@@ -49,19 +48,67 @@ body {
                 &s__top {
                     display: flex;
                     justify-content: space-around;
-                    padding-left: 150px;
+                    padding-left: 105px;
                     
                     .box-number {
-                        width: 85px;
-                        height: 130px;
+                        width: 30px;
+                        height: 100px;
                         p {
-                            word-break: break-word;
+                            width: .7rem;
+                            word-wrap: break-word;
                         }
                     }
                 }
-            }
-
-            
+            }  
         }
+
+        .switcher {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .switch {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 300px;
+                height: 140px;
+                margin-top: 30px;
+                border-radius: 65px;
+                border: 3px solid #E8E9EE;
+                background: #F2F3F7;
+                .cross-wrap, .block-wrap {
+                    width: 160px;
+                    height: 160px;
+                    background: white;
+                    border-radius: 50%;
+                }
+                // .cross, .block {
+                //     position: absolute;
+                //     cursor: pointer;
+                //     top: 0;
+                //     left: 0;
+                //     right: 0;
+                //     bottom: 0;
+                //     transition: .5s;
+                //     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+                //     &::before {
+                //         position: absolute;
+                //         content: '';
+                //         bottom: 14px;
+                //         top: 8px;
+                //         background: lightgray;
+                //         transition: .5s;
+                //     }
+                // }
+                input {
+                    display: none;
+                }
+                input:checked + .cross {
+                    background: #000;
+                }
+            }
+            
+        }       
     }
 }
