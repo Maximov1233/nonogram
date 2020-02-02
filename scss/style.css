@@ -95,6 +95,35 @@ body .container .box-numbers__top .box-number p {
   word-wrap: break-word;
 }
 
+body .container .box .cross-cell {
+  width: inherit;
+  height: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container .box .cross-cell .stick-cell {
+  position: absolute;
+  width: 50px;
+  height: 5px;
+  background: #334861;
+  border-radius: 50px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+body .container .box .cross-cell .stick-cell:first-child {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
 body .container .switcher {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -118,8 +147,8 @@ body .container .switcher .switch {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 300px;
-  height: 140px;
+  width: 200px;
+  height: 100px;
   margin-top: 30px;
   border-radius: 65px;
   border: 3px solid #E8E9EE;
@@ -127,10 +156,44 @@ body .container .switcher .switch {
 }
 
 body .container .switcher .switch .cross-wrap, body .container .switcher .switch .block-wrap {
-  width: 160px;
-  height: 160px;
-  background: white;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container .switcher .switch .cross-wrap .stick, body .container .switcher .switch .block-wrap .stick {
+  position: absolute;
+  width: 70px;
+  height: 8px;
+  background: #334861;
+  border-radius: 50px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+body .container .switcher .switch .cross-wrap .stick:first-child, body .container .switcher .switch .block-wrap .stick:first-child {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+body .container .switcher .switch .cross-wrap .block, body .container .switcher .switch .block-wrap .block {
+  width: 50px;
+  height: 50px;
+  background: #334861;
+  border-radius: 3px;
+}
+
+body .container .switcher .switch .block-wrap {
+  background: transparent;
 }
 
 body .container .switcher .switch input {

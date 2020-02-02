@@ -59,6 +59,24 @@ body {
                         }
                     }
                 }
+            }
+            .cross-cell {
+                width: inherit;
+                height: inherit;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .stick-cell {
+                    position: absolute;
+                    width: 50px;
+                    height: 5px;
+                    background: #334861;
+                    border-radius: 50px;
+                    transform: rotate(-45deg);
+                    &:first-child {
+                        transform: rotate(45deg);
+                    }
+                }
             }  
         }
 
@@ -71,36 +89,41 @@ body {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                width: 300px;
-                height: 140px;
+                width: 200px;
+                height: 100px;
                 margin-top: 30px;
                 border-radius: 65px;
                 border: 3px solid #E8E9EE;
                 background: #F2F3F7;
                 .cross-wrap, .block-wrap {
-                    width: 160px;
-                    height: 160px;
-                    background: white;
+                    width: 100px;
+                    height: 100px;
                     border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .stick {
+                        position: absolute;
+                        width: 70px;
+                        height: 8px;
+                        background: #334861;
+                        border-radius: 50px;
+                        transform: rotate(-45deg);
+                        &:first-child {
+                            transform: rotate(45deg);
+                        }
+                    }
+                    .block {
+                        width: 50px;
+                        height: 50px;
+                        background: #334861;
+                        border-radius: 3px;
+                    }
                 }
-                // .cross, .block {
-                //     position: absolute;
-                //     cursor: pointer;
-                //     top: 0;
-                //     left: 0;
-                //     right: 0;
-                //     bottom: 0;
-                //     transition: .5s;
-                //     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-                //     &::before {
-                //         position: absolute;
-                //         content: '';
-                //         bottom: 14px;
-                //         top: 8px;
-                //         background: lightgray;
-                //         transition: .5s;
-                //     }
-                // }
+                .block-wrap {
+                    background: transparent;
+                }
+                
                 input {
                     display: none;
                 }
