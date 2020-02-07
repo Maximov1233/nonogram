@@ -21,8 +21,8 @@ body .container {
 }
 
 body .container .box {
-  width: 520px;
-  height: 520px;
+  width: 522px;
+  height: 522px;
   border: 3px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -88,11 +88,6 @@ body .container .box-numbers__top {
 body .container .box-numbers__top .box-number {
   width: 30px;
   height: 100px;
-}
-
-body .container .box-numbers__top .box-number p {
-  width: .7rem;
-  word-wrap: break-word;
 }
 
 body .container .box .cross-cell {
