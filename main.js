@@ -22,6 +22,22 @@ crossCell.appendChild(stickCell);
 const stickCellClone = stickCell.cloneNode(true);
 crossCell.appendChild(stickCellClone);
 
+// adding attempts 
+
+const attempts = document.querySelector('.attempts'),
+    attempt    = document.createElement('div');
+
+let counter = 0;
+
+attempt.classList.add('attempt');
+
+for (let i = 0; i < 3; i++) {
+    const attemptClone = attempt.cloneNode(true);
+    attempts.appendChild(attemptClone);
+} 
+
+const attemptsInGame = document.querySelectorAll('.attempt');
+
 // giving coordinates
 
 let trueArr = [
@@ -55,6 +71,8 @@ for (let i = 0; i < boxCells.length; i++) {
 
 // click
 
+
+
 boxCells.forEach((cell) => {
     if (cell.dataset.x == 5 && cell.dataset.y == 5) {
         cell.style.borderRight = '3px solid black';
@@ -65,39 +83,55 @@ boxCells.forEach((cell) => {
         cell.style.borderRight = '3px solid black';
     }
     cell.addEventListener('click', () => {
-        if (!cell.classList.contains('clicked')) {
-            if (current === 'block') {
-                if (cell.dataset.reality == '1') {
-                    cell.style.background = '#334861';
-                    cell.style.borderColor = '#24344B';
-                    if (cell.dataset.x == 5 && cell.dataset.y == 5) {
-                        cell.style.borderRight = '3px solid black';
-                        cell.style.borderBottom = '3px solid black';
-                    } else if (cell.dataset.y == 5) {
-                        cell.style.borderBottom = '3px solid black';
-                    } else if (cell.dataset.x == 5) {
-                        cell.style.borderRight = '3px solid black';
+        if (counter !== 3) {
+            if (!cell.classList.contains('clicked')) {
+                if (current === 'block') {
+                    if (cell.dataset.reality == '1') {
+                        cell.style.background = '#334861';
+                        cell.style.borderColor = '#24344B';
+                        if (cell.dataset.x == 5 && cell.dataset.y == 5) {
+                            cell.style.borderRight = '3px solid black';
+                            cell.style.borderBottom = '3px solid black';
+                        } else if (cell.dataset.y == 5) {
+                            cell.style.borderBottom = '3px solid black';
+                        } else if (cell.dataset.x == 5) {
+                            cell.style.borderRight = '3px solid black';
+                        }
+                        cell.classList.add('hit');
+                    } else {
+                        alert('wrong');
+                        cell.classList.remove('clicked');
+                        for (let i = 0; i < attemptsInGame.length; i++) {
+                            if (i === counter) {
+                                attemptsInGame[i].style.background = 'none';
+                                attemptsInGame[i].style.border = '1px solid red';
+                            }
+                        }
+                        counter++;
                     }
-                    cell.classList.add('hit');
-                } else {
-                    alert('wrong');
-                    cell.classList.remove('clicked');
-                }
-
-            } else if (current == 'cross') {
-                if (cell.dataset.reality == '0') {
-                    const crossCellClone = crossCell.cloneNode(true);
-                    cell.appendChild(crossCellClone);
-                    cell.classList.add('hit');
-                } else {
-                    alert('wrong');
-                    cell.classList.remove('clicked');
+    
+                } else if (current == 'cross') {
+                    if (cell.dataset.reality == '0') {
+                        const crossCellClone = crossCell.cloneNode(true);
+                        cell.appendChild(crossCellClone);
+                        cell.classList.add('hit');
+                    } else {
+                        alert('wrong');
+                        cell.classList.remove('clicked');
+                        attemptInGame.style.background = 'none';
+                        attemptInGame.style.border = '1px solid red';
+                        counter++;
+                    }
                 }
             }
+            
+            else if (cell.classList.contains('hit')) {
+                cell.classList.add('clicked');
+            }
+        } else {
+            alert('game over');
         }
-        if (cell.classList.contains('hit')) {
-            cell.classList.add('clicked');
-        }
+        
     });
 });
 

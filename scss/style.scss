@@ -6,11 +6,29 @@ body {
     min-height: 2000px;
 
     .container {
-        margin-top: 100px;
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
-
+        flex-direction: column;
+        .attempts {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 100px;
+            padding-left: 105px;
+            margin: auto;
+            margin-bottom: 20px;
+            .attempt {
+                width: 20px;
+                height: 20px;
+                background: red;
+                border-radius: 50%;
+            }
+        }
+        // .box-wrap {
+        //     margin-top: 50px;
+        // }
         .box {
             width: 522px;
             height: 522px;
@@ -53,9 +71,6 @@ body {
                     .box-number {
                         width: 30px;
                         height: 100px;
-                        p {
-                            
-                        }
                     }
                 }
             }
