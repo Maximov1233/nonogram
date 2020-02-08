@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto';
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .play-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+                border: 1px solid #56A1E5;
+                padding: 20px 100px;
+                border-radius: 50px;
+                min-width: 100%;
+                color: #56A1E5;
+                text-decoration: none;
+            }
+        }
+    }
+}
