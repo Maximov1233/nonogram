@@ -25,24 +25,25 @@ body .container {
 }
 
 body .container .attempts {
-  margin-bottom: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  max-width: 100px;
+  max-width: 200px;
   padding-left: 105px;
   margin: auto;
   margin-bottom: 20px;
 }
 
-body .container .attempts .attempt {
-  width: 20px;
-  height: 20px;
-  background: red;
-  border-radius: 50%;
+body .container .heart img {
+  width: 45px;
+  height: 45px;
+}
+
+body .container .heart img[src="http://127.0.0.1:5500/img/heart.svg"] {
+  fill: red;
 }
 
 body .container .box {
