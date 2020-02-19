@@ -8,10 +8,10 @@ for (let i = 0; i < 100; i++) {
     box.appendChild(boxCell);
 }
 const boxCells = box.querySelectorAll('.box-cell');
-let current = 'block';
+let current    = 'block';
 
-const cross = document.querySelector('.cross-wrap'),
-    block = document.querySelector('.block-wrap'),
+const cross   = document.querySelector('.cross-wrap'),
+    block     = document.querySelector('.block-wrap'),
     stickCell = document.createElement('div'),
     crossCell = document.createElement('div');
 
@@ -27,7 +27,7 @@ crossCell.appendChild(stickCellClone);
 const attempts    = document.querySelector('.attempts'),
     heart         = document.createElement('div'),
     imgNotClicked = document.createElement('img'),
-    imgWrongClick = document.createElement('img');
+    imgWrongClick = 'http://127.0.0.1:5500/img/heart.svg';
 
 let counter = 0;
 
@@ -35,14 +35,10 @@ heart.classList.add('heart');
 
 imgNotClicked.src = 'http://127.0.0.1:5500/img/like.svg';
 
-imgWrongClick.src = 'http://127.0.0.1:5500/img/heart.svg';
-
-
 const attemptsInGame = document.querySelectorAll('.heart');
 
 for (let i = 0; i < 3; i++) {
     const heartClone = heart.cloneNode(true);
-    imgWrongClick.dataset.pos = i;
     attempts.appendChild(heartClone);
     const imgNotClickedClone = imgNotClicked.cloneNode(true);
     imgNotClickedClone.dataset.pos = i;
@@ -84,18 +80,25 @@ for (let i = 0; i < boxCells.length; i++) {
 
 // click
 
+const refresher = document.createElement('div');
+
+refresher.classList.add('refresher');
+
 boxCells.forEach((cell) => {
     if (cell.dataset.x == 5 && cell.dataset.y == 5) {
         cell.style.borderRight = '3px solid black';
         cell.style.borderBottom = '3px solid black';
+        cell.style.zIndex = '99';
     } else if (cell.dataset.y == 5) {
         cell.style.borderBottom = '3px solid black';
+        cell.style.zIndex = '99';
     } else if (cell.dataset.x == 5) {
         cell.style.borderRight = '3px solid black';
+        cell.style.zIndex = '99';
     }
     cell.addEventListener('click', () => {
         if (counter !== 3) {
-            if (!cell.classList.contains('clicked')) {
+            if (!cell.classList.contains('hit')) {
                 if (current === 'block') {
                     if (cell.dataset.reality == '1') {
                         cell.style.background = '#334861';
@@ -110,19 +113,29 @@ boxCells.forEach((cell) => {
                         }
                         cell.classList.add('hit');
                     } else {
-                        const imagesInGame = document.querySelectorAll('.heart img');
-                        for (let i = 0; i < imagesInGame.length; i++) {
-                            if (imagesInGame[i].dataset.pos == counter) {
-                                imagesInGame[i].src = imgWrongClick.src;
+                        document.body.appendChild(refresher);
+                        cell.classList.add('wrong-click');
+                        setTimeout(() => {
+                            const imagesInGame = document.querySelectorAll('.heart img');
+                            for (let i = 0; i < imagesInGame.length; i++) {
+                                if (imagesInGame[i].dataset.pos == counter) {
+                                    imagesInGame[i].src = imgWrongClick;
+                                }
                             }
-                        }
-                        counter++;
-                        if (counter === 3) {
+                            const crossCellClone = crossCell.cloneNode(true);
+                            cell.appendChild(crossCellClone);
+                            cell.classList.add('hit');
+                            cell.classList.remove('wrong-click');
+                            counter++;
+                            refresher.remove();  
+                        }, 2300);
+
+                        if (counter === 2) {
                             setTimeout(() => {
                                 alert('game over');
-                            }, 300);
-                            
-                        }         
+                            }, 3000);
+                        }
+                               
                     }
 
                 } else if (current == 'cross') {
@@ -131,67 +144,32 @@ boxCells.forEach((cell) => {
                         cell.appendChild(crossCellClone);
                         cell.classList.add('hit');
                     } else {
-                        const imagesInGame = document.querySelectorAll('.heart img');
-                        for (let i = 0; i < imagesInGame.length; i++) {
-                            if (imagesInGame[i].dataset.pos == counter) {
-                                imagesInGame[i].src = imgWrongClick.src;
+                        document.body.appendChild(refresher);
+                        cell.classList.add('wrong-click');
+                        setTimeout(() => {
+                            const imagesInGame = document.querySelectorAll('.heart img');
+                            for (let i = 0; i < imagesInGame.length; i++) {
+                                if (imagesInGame[i].dataset.pos == counter) {
+                                    imagesInGame[i].src = imgWrongClick;
+                                }
                             }
-                        }
-                        counter++;
-                        if (counter === 3) {
+                            const crossCellClone = crossCell.cloneNode(true);
+                            cell.appendChild(crossCellClone);
+                            cell.classList.add('hit');
+                            cell.classList.remove('wrong-click');
+                            counter++;
+                            refresher.remove();  
+                        }, 2300);
+
+                        if (counter === 2) {
                             setTimeout(() => {
                                 alert('game over');
-                            }, 300);
-                            
+                            }, 3000);
                         }
+                               
                     }
                 }
             } 
-            // else if (cell.classList.contains('hit')) {
-            //     cell.classList.add('clicked');
-            //     if (!cell.classList.contains('clicked')) {
-                    // if (current === 'block') {
-                    //     if (cell.dataset.reality == '1') {
-                    //         cell.style.background = '#334861';
-                    //         cell.style.borderColor = '#24344B';
-                    //         if (cell.dataset.x == 5 && cell.dataset.y == 5) {
-                    //             cell.style.borderRight = '3px solid black';
-                    //             cell.style.borderBottom = '3px solid black';
-                    //         } else if (cell.dataset.y == 5) {
-                    //             cell.style.borderBottom = '3px solid black';
-                    //         } else if (cell.dataset.x == 5) {
-                    //             cell.style.borderRight = '3px solid black';
-                    //         }
-                    //         cell.classList.add('hit');
-                    //     } else {
-                    //         alert('wrong');
-                    //         cell.classList.remove('clicked');
-                    //         for (let i = 0; i < attemptsInGame.length; i++) {
-                    //             if (i === counter) {
-                    //                 attemptsInGame[i].style.background = 'none';
-                    //                 attemptsInGame[i].style.border = '1px solid red';
-                    //             }
-                    //         }
-                    //         counter++;
-                    //     }
-
-                    // } else if (current == 'cross') {
-                    //     if (cell.dataset.reality == '0') {
-                    //         const crossCellClone = crossCell.cloneNode(true);
-                    //         cell.appendChild(crossCellClone);
-                    //         cell.classList.add('hit');
-                    //     } else {
-                    //         alert('wrong');
-                    //         cell.classList.remove('clicked');
-                    //         attemptInGame.style.background = 'none';
-                    //         attemptInGame.style.border = '1px solid red';
-                    //         counter++;
-                    //     }
-                    // }
-            //     } else if (cell.classList.contains('hit')) {
-            //         cell.classList.add('clicked');
-            //     }
-            // }
         } else {
             alert('game over');
         }
