@@ -53,8 +53,8 @@ body {
             }
         }
         .box {
-            width: 502px;
-            height: 502px;
+            width: 552px;
+            height: 552px;
             border: 3px solid black;
             display: flex;
             flex-wrap: wrap;
@@ -65,12 +65,15 @@ body {
             }
 
             &-cell {
-                min-width: 50px;
-                min-height: 50px;
+                width: 55px;
+                height: 55px;
                 border-right: 1px solid #C1C5D1;
                 border-bottom: 1px solid #C1C5D1;
                 margin-right: -1px;
                 margin-bottom: -1px;
+                // &[data-y = "10"], &[data-x = "10"] {
+                   
+                // }
             }
 
             &-number {

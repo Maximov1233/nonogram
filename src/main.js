@@ -1,14 +1,20 @@
+import {realityObject, numbersTopObj, numbersLeftObj} from './levels.js';
+
 const box = document.querySelector('.box');
 
-// addind cells into box
+// adding cells into box
 
 for (let i = 0; i < 100; i++) {
     const boxCell = document.createElement('div');
     boxCell.classList.add('box-cell');
     box.appendChild(boxCell);
+    boxCell.dataset.pos = i + 1;
 }
 const boxCells = box.querySelectorAll('.box-cell');
-let current    = 'block';
+
+// adding switcher options
+
+let current = 'block';
 
 const cross   = document.querySelector('.cross-wrap'),
     block     = document.querySelector('.block-wrap'),
@@ -35,8 +41,6 @@ heart.classList.add('heart');
 
 imgNotClicked.src = 'http://127.0.0.1:5500/img/like.svg';
 
-const attemptsInGame = document.querySelectorAll('.heart');
-
 for (let i = 0; i < 3; i++) {
     const heartClone = heart.cloneNode(true);
     attempts.appendChild(heartClone);
@@ -45,23 +49,7 @@ for (let i = 0; i < 3; i++) {
     heartClone.appendChild(imgNotClickedClone);
 }
 
-
-
 // giving coordinates
-
-let trueArr = [
-    0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0, 1, 1,
-    1, 1, 0, 1, 1, 1, 1, 0, 1, 1,
-    1, 1, 0, 1, 1, 1, 1, 0, 1, 1,
-    1, 1, 0, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
-
-];
 
 let x = 1,
     y = 1;
@@ -75,7 +63,6 @@ for (let i = 0; i < boxCells.length; i++) {
         boxCells[i].dataset.y = y;
         y++;
     }
-    boxCells[i].dataset.reality = trueArr[i];
 }
 
 // click
@@ -84,25 +71,51 @@ const refresher = document.createElement('div');
 
 refresher.classList.add('refresher');
 
+let reality;
+
 boxCells.forEach((cell) => {
-    if (cell.dataset.x == 5 && cell.dataset.y == 5) {
+    if (cell.dataset.y == 10 && cell.dataset.x == 10) {
+        cell.style.borderBottom = '3px solid black';
+        cell.style.borderRight = 'unset';
+        cell.style.zIndex = '99';
+    } else if (cell.dataset.y == 5 && cell.dataset.x == 10) {
+        cell.style.borderBottom = '3px solid black';
+        cell.style.zIndex = '99';
+        cell.style.borderRight = 'unset';
+    } else if (cell.dataset.x == 5 && cell.dataset.y == 10) {
+        cell.style.borderRight = '3px solid black';
+        cell.style.zIndex = '99';
+        cell.style.borderBottom = '3px solid black';
+    } else if (cell.dataset.x == 10) {
+        cell.style.borderRight = 'unset';
+    } else if (cell.dataset.y == 10) {
+        cell.style.borderBottom = '3px solid black';
+        cell.style.zIndex = '99';
+    } else if (cell.dataset.x == 5 && cell.dataset.y == 5) {
         cell.style.borderRight = '3px solid black';
         cell.style.borderBottom = '3px solid black';
         cell.style.zIndex = '99';
-    } else if (cell.dataset.y == 5) {
+    }  else if (cell.dataset.y == 5) {
         cell.style.borderBottom = '3px solid black';
         cell.style.zIndex = '99';
     } else if (cell.dataset.x == 5) {
         cell.style.borderRight = '3px solid black';
         cell.style.zIndex = '99';
-    }
+    } 
     cell.addEventListener('click', () => {
+
         if (counter !== 3) {
             if (!cell.classList.contains('hit')) {
+                
                 if (current === 'block') {
-                    if (cell.dataset.reality == '1') {
+                    for (let key in realityObject) {
+                        if (cell.dataset.pos == key) {
+                            reality = realityObject[key];
+                        }
+                    }
+                    if (reality == '1') {
                         cell.style.background = '#334861';
-                        cell.style.borderColor = '#24344B';
+                        cell.style.borderColor = '#141D29';
                         if (cell.dataset.x == 5 && cell.dataset.y == 5) {
                             cell.style.borderRight = '3px solid black';
                             cell.style.borderBottom = '3px solid black';
@@ -134,16 +147,20 @@ boxCells.forEach((cell) => {
                             setTimeout(() => {
                                 alert('game over');
                             }, 3000);
-                        }
-                               
+                        }        
                     }
-
                 } else if (current == 'cross') {
-                    if (cell.dataset.reality == '0') {
+                    for (let key in realityObject) {
+                        if (cell.dataset.pos == key) {
+                            reality = realityObject[key];
+                        }
+                    }
+                    if (reality == '0') {
                         const crossCellClone = crossCell.cloneNode(true);
                         cell.appendChild(crossCellClone);
                         cell.classList.add('hit');
                     } else {
+                        console.log('not cross');
                         document.body.appendChild(refresher);
                         cell.classList.add('wrong-click');
                         setTimeout(() => {
@@ -153,8 +170,8 @@ boxCells.forEach((cell) => {
                                     imagesInGame[i].src = imgWrongClick;
                                 }
                             }
-                            const crossCellClone = crossCell.cloneNode(true);
-                            cell.appendChild(crossCellClone);
+                            cell.style.background = '#334861';
+                            cell.style.borderColor = '#24344B';
                             cell.classList.add('hit');
                             cell.classList.remove('wrong-click');
                             counter++;
@@ -165,15 +182,13 @@ boxCells.forEach((cell) => {
                             setTimeout(() => {
                                 alert('game over');
                             }, 3000);
-                        }
-                               
+                        }       
                     }
                 }
             } 
         } else {
             alert('game over');
         }
-
     });
 });
 
@@ -198,32 +213,7 @@ block.addEventListener('click', () => {
 const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'),
     numbersTop = document.querySelectorAll('.box-numbers__top .box-number p');
 
-let numbersLeftArr = [],
-    numbersTopArr = [],
-    numbersLeftObj = {
-        "1": "2",
-        "2": "4",
-        "3": "4",
-        "4": "4 2",
-        "5": "2 4 2",
-        "6": "2 4 2",
-        "7": "2 7",
-        "8": "10",
-        "9": "5",
-        "10": "4"
-    },
-    numbersTopObj = {
-        "1": "4",
-        "2": "4",
-        "3": "2",
-        "4": "9",
-        "5": "10",
-        "6": "10",
-        "7": "9",
-        "8": "2",
-        "9": "5",
-        "10": "5"
-    };
+
 
 // filling numbers
 
