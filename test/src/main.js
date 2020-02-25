@@ -33,13 +33,13 @@ crossCell.appendChild(stickCellClone);
 const attempts    = document.querySelector('.attempts'),
     heart         = document.createElement('div'),
     imgNotClicked = document.createElement('img'),
-    imgWrongClick = 'http://127.0.0.1:5500/img/heart.svg';
+    imgWrongClick = 'http://127.0.0.1:5500/test/img/heart.svg';
 
 let counter = 0;
 
 heart.classList.add('heart');
 
-imgNotClicked.src = 'http://127.0.0.1:5500/img/like.svg';
+imgNotClicked.src = 'http://127.0.0.1:5500/test/img/like.svg';
 
 for (let i = 0; i < 3; i++) {
     const heartClone = heart.cloneNode(true);
@@ -91,7 +91,7 @@ boxCells.forEach((cell) => {
     } else if (cell.dataset.y == 10) {
         cell.style.borderBottom = '3px solid black';
         cell.style.zIndex = '99';
-    }else if (cell.dataset.x == 5 && cell.dataset.y == 5) {
+    } else if (cell.dataset.x == 5 && cell.dataset.y == 5) {
         cell.style.borderRight = '3px solid black';
         cell.style.borderBottom = '3px solid black';
         cell.style.zIndex = '99';
@@ -114,10 +114,6 @@ boxCells.forEach((cell) => {
                         }
                     }
                     if (reality == '1') {
-                        if (cell.dataset.pos == 14) {
-                            cell.style.borderBottomColor = '#141D29';
-                            cell.style.borderRightColor = '#141D29';
-                        }
                         cell.style.background = '#334861';
                         cell.style.borderColor = '#141D29';
                         if (cell.dataset.x == 5 && cell.dataset.y == 5) {

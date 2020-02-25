@@ -82,8 +82,8 @@ body .container .heart img {
 }
 
 body .container .box {
-  width: 552px;
-  height: 552px;
+  width: 571px;
+  height: 571px;
   border: 3px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -102,10 +102,7 @@ body .container .box-2 {
 body .container .box-cell {
   width: 55px;
   height: 55px;
-  border-right: 1px solid #C1C5D1;
-  border-bottom: 1px solid #C1C5D1;
-  margin-right: -1px;
-  margin-bottom: -1px;
+  border: 1px solid #C1C5D1;
 }
 
 body .container .box-number {
