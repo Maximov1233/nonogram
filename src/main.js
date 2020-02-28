@@ -41,13 +41,17 @@ heart.classList.add('heart');
 
 imgNotClicked.src = 'http://127.0.0.1:5500/img/like.svg';
 
-for (let i = 0; i < 3; i++) {
-    const heartClone = heart.cloneNode(true);
-    attempts.appendChild(heartClone);
-    const imgNotClickedClone = imgNotClicked.cloneNode(true);
-    imgNotClickedClone.dataset.pos = i;
-    heartClone.appendChild(imgNotClickedClone);
+const addingHearts = () => {
+    for (let i = 0; i < 3; i++) {
+        const heartClone = heart.cloneNode(true);
+        attempts.appendChild(heartClone);
+        const imgNotClickedClone = imgNotClicked.cloneNode(true);
+        imgNotClickedClone.dataset.pos = i;
+        heartClone.appendChild(imgNotClickedClone);
+    }
 }
+
+addingHearts();
 
 // giving coordinates
 
@@ -67,7 +71,8 @@ for (let i = 0; i < boxCells.length; i++) {
 
 // click
 
-const refresher = document.createElement('div');
+const refresher = document.createElement('div'),
+    modal       = document.querySelector('.game-over__modal');
 
 refresher.classList.add('refresher');
 
@@ -114,12 +119,7 @@ boxCells.forEach((cell) => {
                         }
                     }
                     if (reality == '1') {
-                        if (cell.dataset.pos == 14) {
-                            cell.style.borderBottomColor = '#141D29';
-                            cell.style.borderRightColor = '#141D29';
-                        }
-                        cell.style.background = '#334861';
-                        cell.style.borderColor = '#141D29';
+                        cell.classList.add('box-cell__block');
                         if (cell.dataset.x == 5 && cell.dataset.y == 5) {
                             cell.style.borderRight = '3px solid black';
                             cell.style.borderBottom = '3px solid black';
@@ -149,8 +149,10 @@ boxCells.forEach((cell) => {
 
                         if (counter === 2) {
                             setTimeout(() => {
-                                alert('game over');
-                            }, 3000);
+                                modal.style.display = 'flex';
+                                modal.classList.add('game-over__animation');
+                                modal.style.opacity = '1';
+                            }, 2800);
                         }        
                     }
                 } else if (current == 'cross') {
@@ -164,7 +166,6 @@ boxCells.forEach((cell) => {
                         cell.appendChild(crossCellClone);
                         cell.classList.add('hit');
                     } else {
-                        console.log('not cross');
                         document.body.appendChild(refresher);
                         cell.classList.add('wrong-click');
                         setTimeout(() => {
@@ -174,8 +175,7 @@ boxCells.forEach((cell) => {
                                     imagesInGame[i].src = imgWrongClick;
                                 }
                             }
-                            cell.style.background = '#334861';
-                            cell.style.borderColor = '#24344B';
+                            cell.classList.add('.box-cell__block');
                             cell.classList.add('hit');
                             cell.classList.remove('wrong-click');
                             counter++;
@@ -184,8 +184,11 @@ boxCells.forEach((cell) => {
 
                         if (counter === 2) {
                             setTimeout(() => {
-                                alert('game over');
-                            }, 3000);
+                                modal.style.display = 'flex';
+                                modal.classList.add('game-over__animation');
+                                modal.style.opacity = '1';
+                                
+                            }, 2800);
                         }       
                     }
                 }
@@ -217,8 +220,6 @@ block.addEventListener('click', () => {
 const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'),
     numbersTop = document.querySelectorAll('.box-numbers__top .box-number p');
 
-
-
 // filling numbers
 
 for (let i = 0; i < numbersLeft.length; i++) {
@@ -238,3 +239,34 @@ for (let i = 0; i < numbersTop.length; i++) {
         }
     }
 }
+
+let j = 0;
+
+const refreshFunc = () => {
+    boxCells.forEach((cell) => {
+        cell.className = 'box-cell';
+        modal.classList.remove('game-over__animation');
+        counter = 0;
+        modal.style.opacity = '0';
+        modal.style.display = '';
+        if (cell.hasChildNodes()) {
+            const crossCellClone = cell.querySelector('.cross-cell');   
+            crossCellClone.parentNode.removeChild(crossCellClone);
+        }
+        const heart = document.querySelector('.heart');
+        if (j !== 3) { 
+            if (attempts.hasChildNodes()) {
+                attempts.removeChild(heart);
+                j++;
+            }
+        }
+    });
+};
+const restart = document.querySelector('.restart-button');
+
+restart.addEventListener('click', () => {
+    refreshFunc();
+    addingHearts();
+});
+
+
