@@ -1,4 +1,5 @@
-import {realityObject, numbersTopObj, numbersLeftObj} from './levels.js';
+// import {realityObject, numbersTopObj, numbersLeftObj, cactusLevel} from './levels.js';
+import * as cactusLevel from './levels.js';
 
 const box = document.querySelector('.box');
 
@@ -113,9 +114,9 @@ boxCells.forEach((cell) => {
             if (!cell.classList.contains('hit')) {
                 
                 if (current === 'block') {
-                    for (let key in realityObject) {
+                    for (let key in cactusLevel.realityObject) {
                         if (cell.dataset.pos == key) {
-                            reality = realityObject[key];
+                            reality = cactusLevel.realityObject[key];
                         }
                     }
                     if (reality == '1') {
@@ -145,7 +146,7 @@ boxCells.forEach((cell) => {
                             cell.classList.remove('wrong-click');
                             counter++;
                             refresher.remove();  
-                        }, 1800);
+                        }, 1700);
 
                         if (counter === 2) {
                             setTimeout(() => {
@@ -156,9 +157,9 @@ boxCells.forEach((cell) => {
                         }        
                     }
                 } else if (current == 'cross') {
-                    for (let key in realityObject) {
+                    for (let key in cactusLevel.realityObject) {
                         if (cell.dataset.pos == key) {
-                            reality = realityObject[key];
+                            reality = cactusLevel.realityObject[key];
                         }
                     }
                     if (reality == '0') {
@@ -175,7 +176,7 @@ boxCells.forEach((cell) => {
                                     imagesInGame[i].src = imgWrongClick;
                                 }
                             }
-                            cell.classList.add('.box-cell__block');
+                            cell.classList.add('box-cell__block');
                             cell.classList.add('hit');
                             cell.classList.remove('wrong-click');
                             counter++;
@@ -187,7 +188,6 @@ boxCells.forEach((cell) => {
                                 modal.style.display = 'flex';
                                 modal.classList.add('game-over__animation');
                                 modal.style.opacity = '1';
-                                
                             }, 2800);
                         }       
                     }
@@ -224,18 +224,18 @@ const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'
 
 for (let i = 0; i < numbersLeft.length; i++) {
     numbersLeft[i].dataset.pos = i + 1;
-    for (let key in numbersLeftObj) {
+    for (let key in cactusLevel.numbersLeftObj) {
         if (numbersLeft[i].dataset.pos == key) {
-            numbersLeft[i].innerHTML = numbersLeftObj[key];
+            numbersLeft[i].innerHTML = cactusLevel.numbersLeftObj[key];
         }
     }
 }
 
 for (let i = 0; i < numbersTop.length; i++) {
     numbersTop[i].dataset.pos = i + 1;
-    for (let key in numbersTopObj) {
+    for (let key in cactusLevel.numbersTopObj) {
         if (numbersTop[i].dataset.pos == key) {
-            numbersTop[i].innerHTML = numbersTopObj[key];
+            numbersTop[i].innerHTML = cactusLevel.numbersTopObj[key];
         }
     }
 }
@@ -262,11 +262,10 @@ const refreshFunc = () => {
         }
     });
 };
+
 const restart = document.querySelector('.restart-button');
 
 restart.addEventListener('click', () => {
     refreshFunc();
     addingHearts();
 });
-
-

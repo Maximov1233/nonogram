@@ -8,8 +8,8 @@ body {
 }
 
 body .wrong-click {
-  -webkit-animation: wrongClick 3s;
-          animation: wrongClick 3s;
+  -webkit-animation: wrongClick 2.5s;
+          animation: wrongClick 2.5s;
 }
 
 @-webkit-keyframes wrongClick {

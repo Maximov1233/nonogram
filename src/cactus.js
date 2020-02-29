@@ -1,6 +1,7 @@
+{
+    const cactusLevel = {
 
-
-        export const numbersLeftObj =  {
+        numbersLeftObj: {
             "1": "2",
             "2": "4",
             "3": "4",
@@ -13,7 +14,7 @@
             "10": "4"
         },
     
-        numbersTopObj = {
+        numbersTopObj: {
             "1": "4",
             "2": "4",
             "3": "2",
@@ -24,13 +25,13 @@
             "8": "2",
             "9": "5",
             "10": "5"
-        },
-        realities =  {};
-
-
-    export let realityObject = {};
+        }
     
-    export const reality = [
+        
+    };
+    let realityObject =  {},
+    
+    const reality = [
         0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
         0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
         0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
@@ -41,8 +42,13 @@
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
         0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
-    ];
+    ]
     
     for (let i = 0; i < 100; i++) {
         realityObject[i + 1] = reality[i];
     };
+
+    cactusLevel.push(realityObject, reality);
+    
+    export default cactusLevel;
+}
