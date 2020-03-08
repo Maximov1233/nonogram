@@ -1,4 +1,6 @@
-import {cactusLevel} from './levels.js';
+import {pokemonLevel} from './levels.js';
+
+console.log(pokemonLevel.length);
 
 const box = document.querySelector('.box');
 
@@ -62,7 +64,7 @@ for (let i = 0; i < boxCells.length; i++) {
     boxCells[i].dataset.x = x;
     boxCells[i].dataset.y = y;
     x++;
-    if (x === 11) {
+    if (x === 16) {
         x = 1;
         boxCells[i].dataset.y = y;
         y++;
@@ -114,21 +116,22 @@ boxCells.forEach((cell) => {
             if (!cell.classList.contains('hit')) {
                 
                 if (current === 'block') {
-                    for (let i = 20; i < cactusLevel.length; i++) {
-                        if (cell.dataset.pos == i - 19) {
-                            reality = cactusLevel[i];
+                    for (let i = 30; i < pokemonLevel.length + 30; i++) {
+                        if (cell.dataset.pos == i - 29) {
+                            reality = pokemonLevel[i];
+                            console.log(reality);
                         }
                     }
                     if (reality == '1') {
                         cell.classList.add('box-cell__block');
-                        if (cell.dataset.x == 5 && cell.dataset.y == 5) {
-                            cell.style.borderRight = '3px solid black';
-                            cell.style.borderBottom = '3px solid black';
-                        } else if (cell.dataset.y == 5) {
-                            cell.style.borderBottom = '3px solid black';
-                        } else if (cell.dataset.x == 5) {
-                            cell.style.borderRight = '3px solid black';
-                        }
+                        // if (cell.dataset.x == 5 && cell.dataset.y == 5) {
+                        //     cell.style.borderRight = '3px solid black';
+                        //     cell.style.borderBottom = '3px solid black';
+                        // } else if (cell.dataset.y == 5) {
+                        //     cell.style.borderBottom = '3px solid black';
+                        // } else if (cell.dataset.x == 5) {
+                        //     cell.style.borderRight = '3px solid black';
+                        // }
                         cell.classList.add('hit');
                     } else {
                         document.body.appendChild(refresher);
@@ -157,9 +160,9 @@ boxCells.forEach((cell) => {
                         }        
                     }
                 } else if (current == 'cross') {
-                    for (let i = 20; i < cactusLevel.length; i++) {
-                        if (cell.dataset.pos == i - 19) {
-                            reality = cactusLevel[i];
+                    for (let i = 30; i < pokemonLevel.length + 30; i++) {
+                        if (cell.dataset.pos == i - 29) {
+                            reality = pokemonLevel[i];
                         }
                     }
                     if (reality == '0') {
@@ -224,15 +227,15 @@ const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'
 
 for (let i = 0; i < numbersLeft.length; i++) {
     numbersLeft[i].dataset.pos = i + 1;
-    for (let i = 0; i < 10; i++) {
-        numbersLeft[i].innerHTML = cactusLevel[i];
+    for (let i = 0; i < 15; i++) {
+        numbersLeft[i].innerHTML = pokemonLevel[i];
     }
 }
 
 for (let i = 0; i < numbersTop.length; i++) {
     numbersTop[i].dataset.pos = i + 1;
-    for (let i = 10; i < 20; i++) {
-        numbersTop[i - 10].innerHTML = cactusLevel[i];
+    for (let i = 15; i < 30; i++) {
+        numbersTop[i - 15].innerHTML = pokemonLevel[i];
     }
 }
 

@@ -23,9 +23,7 @@ body {
         }
     }
 
-    .box-cell__block {
-        background: #334861;
-    }
+    
 
     .refresher {
         width: 100%;
@@ -44,6 +42,8 @@ body {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+        
 
         .attempts {
             display: flex;
@@ -82,6 +82,11 @@ body {
                 margin-bottom: -1px;
             }
 
+            .box-cell__block {
+                background: #334861;
+                border-right: 1px solid #24344B;
+                border-bottom: 1px solid #24344B;
+            }
 
             &-number {
                 width: 100px;
@@ -107,7 +112,13 @@ body {
 
                     .box-number {
                         width: 30px;
-                        height: 100px;
+                        height: 130px;
+                        // padding-left: 10px;
+                        // padding-right: 10px;
+                        p {
+                            width: 1px;
+                            margin-left: -10px;
+                        }
                     }
                 }
             }
@@ -230,10 +241,6 @@ body {
                 justify-content: space-around;
                 align-items: center;
                 flex-direction: column;
-
-                &-text {}
-
-                &-heart {}
 
                 &-heart {
                     background-color: red;

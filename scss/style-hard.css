@@ -36,10 +36,6 @@ body .wrong-click {
   }
 }
 
-body .box-cell__block {
-  background: #334861;
-}
-
 body .refresher {
   width: 100%;
   height: 2000px;
@@ -114,6 +110,12 @@ body .container .box-cell {
   margin-bottom: -1px;
 }
 
+body .container .box .box-cell__block {
+  background: #334861;
+  border-right: 1px solid #24344B;
+  border-bottom: 1px solid #24344B;
+}
+
 body .container .box-number {
   width: 100px;
   height: 30px;
@@ -157,7 +159,12 @@ body .container .box-numbers__top {
 
 body .container .box-numbers__top .box-number {
   width: 30px;
-  height: 100px;
+  height: 130px;
+}
+
+body .container .box-numbers__top .box-number p {
+  width: 1px;
+  margin-left: -10px;
 }
 
 body .container .box .cross-cell {
