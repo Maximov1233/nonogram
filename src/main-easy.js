@@ -1,5 +1,4 @@
-// import {realityObject, numbersTopObj, numbersLeftObj, cactusLevel} from './levels.js';
-import * as cactusLevel from './levels.js';
+import {cactusLevel} from './levels.js';
 
 const box = document.querySelector('.box');
 
@@ -114,9 +113,9 @@ boxCells.forEach((cell) => {
             if (!cell.classList.contains('hit')) {
                 
                 if (current === 'block') {
-                    for (let key in cactusLevel.realityObject) {
-                        if (cell.dataset.pos == key) {
-                            reality = cactusLevel.realityObject[key];
+                    for (let i = 20; i < cactusLevel.length; i++) {
+                        if (cell.dataset.pos == i - 19) {
+                            reality = cactusLevel[i];
                         }
                     }
                     if (reality == '1') {
@@ -157,9 +156,9 @@ boxCells.forEach((cell) => {
                         }        
                     }
                 } else if (current == 'cross') {
-                    for (let key in cactusLevel.realityObject) {
-                        if (cell.dataset.pos == key) {
-                            reality = cactusLevel.realityObject[key];
+                    for (let i = 20; i < cactusLevel.length; i++) {
+                        if (cell.dataset.pos == i - 19) {
+                            reality = cactusLevel[i];
                         }
                     }
                     if (reality == '0') {
@@ -224,19 +223,15 @@ const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'
 
 for (let i = 0; i < numbersLeft.length; i++) {
     numbersLeft[i].dataset.pos = i + 1;
-    for (let key in cactusLevel.numbersLeftObj) {
-        if (numbersLeft[i].dataset.pos == key) {
-            numbersLeft[i].innerHTML = cactusLevel.numbersLeftObj[key];
-        }
+    for (let i = 0; i < 10; i++) {
+        numbersLeft[i].innerHTML = cactusLevel[i];
     }
 }
 
 for (let i = 0; i < numbersTop.length; i++) {
     numbersTop[i].dataset.pos = i + 1;
-    for (let key in cactusLevel.numbersTopObj) {
-        if (numbersTop[i].dataset.pos == key) {
-            numbersTop[i].innerHTML = cactusLevel.numbersTopObj[key];
-        }
+    for (let i = 10; i < 20; i++) {
+        numbersTop[i - 10].innerHTML = cactusLevel[i];
     }
 }
 

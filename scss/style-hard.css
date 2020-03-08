@@ -88,8 +88,8 @@ body .container .heart img {
 }
 
 body .container .box {
-  width: 552px;
-  height: 552px;
+  width: 751px;
+  height: 751px;
   border: 3px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -106,8 +106,8 @@ body .container .box-2 {
 }
 
 body .container .box-cell {
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-right: 1px solid #C1C5D1;
   border-bottom: 1px solid #C1C5D1;
   margin-right: -1px;
@@ -378,4 +378,4 @@ body .container .game-over__animation {
   -webkit-animation: gameOver 1.4s;
           animation: gameOver 1.4s;
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style-hard.css.map */
