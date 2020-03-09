@@ -196,7 +196,20 @@ body .container .box .cross-cell .stick-cell:first-child {
           transform: rotate(45deg);
 }
 
-body .container .switcher {
+body .container .tools {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+}
+
+body .container .tools .switcher {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -207,9 +220,11 @@ body .container .switcher {
       -ms-flex-align: center;
           align-items: center;
   padding-left: 105px;
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
 }
 
-body .container .switcher .switch {
+body .container .tools .switcher .switch {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -222,14 +237,13 @@ body .container .switcher .switch {
           align-items: center;
   width: 200px;
   height: 100px;
-  margin-top: 30px;
   border-radius: 65px;
   border: 3px solid #87888B;
   background: #A5A5A5;
 }
 
-body .container .switcher .switch .cross-wrap,
-body .container .switcher .switch .block-wrap {
+body .container .tools .switcher .switch .cross-wrap,
+body .container .tools .switcher .switch .block-wrap {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -244,8 +258,8 @@ body .container .switcher .switch .block-wrap {
           align-items: center;
 }
 
-body .container .switcher .switch .cross-wrap .stick,
-body .container .switcher .switch .block-wrap .stick {
+body .container .tools .switcher .switch .cross-wrap .stick,
+body .container .tools .switcher .switch .block-wrap .stick {
   position: absolute;
   width: 70px;
   height: 8px;
@@ -255,30 +269,86 @@ body .container .switcher .switch .block-wrap .stick {
           transform: rotate(-45deg);
 }
 
-body .container .switcher .switch .cross-wrap .stick:first-child,
-body .container .switcher .switch .block-wrap .stick:first-child {
+body .container .tools .switcher .switch .cross-wrap .stick:first-child,
+body .container .tools .switcher .switch .block-wrap .stick:first-child {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }
 
-body .container .switcher .switch .cross-wrap .block,
-body .container .switcher .switch .block-wrap .block {
+body .container .tools .switcher .switch .cross-wrap .block,
+body .container .tools .switcher .switch .block-wrap .block {
   width: 50px;
   height: 50px;
   background: #334861;
   border-radius: 3px;
 }
 
-body .container .switcher .switch .block-wrap {
+body .container .tools .switcher .switch .block-wrap {
   background: transparent;
 }
 
-body .container .switcher .switch input {
+body .container .tools .switcher .switch .bg-white {
+  background: #fff;
+}
+
+body .container .tools .switcher .switch input {
   display: none;
 }
 
-body .container .switcher .switch input:checked + .cross {
+body .container .tools .switcher .switch input:checked + .cross {
   background: #000;
+}
+
+body .container .tools .hint {
+  width: 90px;
+  height: 90px;
+  background: #A5A5A5;
+  border: 3px solid #87888B;
+  border-radius: 65px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 50px;
+  position: relative;
+  cursor: pointer;
+}
+
+body .container .tools .hint .bulb img {
+  width: 45px;
+  height: 45px;
+}
+
+body .container .tools .hint .amount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: blue;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container .tools .hint .amount span {
+  color: #fff;
+}
+
+body .container .tools .bg-white {
+  background: #fff;
 }
 
 body .container .game-over__modal {

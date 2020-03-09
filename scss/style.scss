@@ -135,66 +135,113 @@ body {
             }
         }
 
-        .switcher {
+        .tools {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-left: 105px;
-
-            .switch {
-                position: relative;
+            margin-top: 30px;
+            .switcher {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                width: 200px;
-                height: 100px;
-                margin-top: 30px;
-
-                border-radius: 65px;
-                border: 3px solid #87888B;
-                background: #A5A5A5;
-
-                .cross-wrap,
-                .block-wrap {
-                    width: 100px;
+                padding-left: 105px;
+                flex-basis: 50%;
+                .switch {
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 200px;
                     height: 100px;
+    
+                    border-radius: 65px;
+                    border: 3px solid #87888B;
+                    background: #A5A5A5;
+    
+                    .cross-wrap,
+                    .block-wrap {
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+    
+                        .stick {
+                            position: absolute;
+                            width: 70px;
+                            height: 8px;
+                            background: #334861;
+                            border-radius: 50px;
+                            transform: rotate(-45deg);
+    
+                            &:first-child {
+                                transform: rotate(45deg);
+                            }
+                        }
+    
+                        .block {
+                            width: 50px;
+                            height: 50px;
+                            background: #334861;
+                            border-radius: 3px;
+                        }
+                    }
+    
+                    .block-wrap {
+                        background: transparent;
+                    }
+    
+                    .bg-white {
+                        background: #fff;
+                    }
+    
+                    input {
+                        display: none;
+                    }
+    
+                    input:checked+.cross {
+                        background: #000;
+                    }
+                }
+            }
+
+            .hint {
+                width: 90px;
+                height: 90px;
+                background: #A5A5A5;
+                border: 3px solid #87888B;
+                border-radius: 65px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 50px;
+                position: relative;
+                cursor: pointer;
+                .bulb {
+                    img {
+                        width: 45px;
+                        height: 45px;
+                    }
+                }
+                .amount {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 30px;
+                    height: 30px;
+                    background: blue;
                     border-radius: 50%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
-                    .stick {
-                        position: absolute;
-                        width: 70px;
-                        height: 8px;
-                        background: #334861;
-                        border-radius: 50px;
-                        transform: rotate(-45deg);
-
-                        &:first-child {
-                            transform: rotate(45deg);
-                        }
-                    }
-
-                    .block {
-                        width: 50px;
-                        height: 50px;
-                        background: #334861;
-                        border-radius: 3px;
+                    span {
+                        color: #fff;
                     }
                 }
-
-                .block-wrap {
-                    background: transparent;
-                }
-
-                input {
-                    display: none;
-                }
-
-                input:checked+.cross {
-                    background: #000;
-                }
+            }
+            .bg-white {
+                background: #fff;
             }
         }
 

@@ -76,7 +76,8 @@ const refresher = document.createElement('div'),
 
 refresher.classList.add('refresher');
 
-let reality;
+let reality,
+hints = 10;
 
 boxCells.forEach((cell) => {
     if (cell.dataset.y == 10 && cell.dataset.x == 10) {
@@ -190,6 +191,26 @@ boxCells.forEach((cell) => {
                             }, 2800);
                         }       
                     }
+                } else if (current == 'hint') {
+                    if (hints !== 0) {
+                        for (let i = 20; i < cactusLevel.length; i++) {
+                            if (cell.dataset.pos == i - 19) {
+                                reality = cactusLevel[i];
+                            }
+                        }
+                        if (reality == '1') {
+                            cell.classList.add('box-cell__block');
+                        } else if (reality == '0') {
+                            const crossCellClone = crossCell.cloneNode(true);
+                            cell.appendChild(crossCellClone);
+                            cell.classList.add('hit');
+                        }
+                        hints--;
+                        hintSpan.innerHTML = hints;
+                    }
+                    else {
+                        alert('you are out of hints');
+                    }
                 }
             } 
         } else {
@@ -200,18 +221,30 @@ boxCells.forEach((cell) => {
 
 // switcher
 
-block.style.background = '#fff';
+block.classList.add('bg-white');
 
 cross.addEventListener('click', () => {
-    cross.style.background = '#fff';
-    block.style.background = '';
+    cross.classList.add('bg-white')
+    block.classList.remove('bg-white');
     current = 'cross';
 });
 
 block.addEventListener('click', () => {
-    cross.style.background = '';
-    block.style.background = '#fff';
+    cross.classList.remove('bg-white');
+    block.classList.add('bg-white');
     current = 'block';
+});
+
+// hint 
+
+const hint   = document.querySelector('.hint'),
+    hintSpan = hint.querySelector('span');
+
+hint.addEventListener('click', () => {
+    block.classList.remove('bg-white');
+    cross.classList.remove('bg-white');
+    hint.classList.add('bg-white');
+    current = 'hint';
 });
 
 // massive of numbers

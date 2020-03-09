@@ -1,4 +1,4 @@
-import * as cactusLevel from './levels.js';
+import {cactusLevel} from './levels.js';
 
 const box = document.querySelector('.box');
 
@@ -76,7 +76,8 @@ const refresher = document.createElement('div'),
 
 refresher.classList.add('refresher');
 
-let reality;
+let reality,
+hints = 10;
 
 boxCells.forEach((cell) => {
     if (cell.dataset.y == 10 && cell.dataset.x == 10) {
@@ -113,9 +114,9 @@ boxCells.forEach((cell) => {
             if (!cell.classList.contains('hit')) {
                 
                 if (current === 'block') {
-                    for (let i = 0; i < cactusLevel.reality.length; i++) {
-                        if (cell.dataset.pos == i + 1) {
-                            reality = cactusLevel.reality[i];
+                    for (let i = 20; i < cactusLevel.length; i++) {
+                        if (cell.dataset.pos == i - 19) {
+                            reality = cactusLevel[i];
                         }
                     }
                     if (reality == '1') {
@@ -156,9 +157,9 @@ boxCells.forEach((cell) => {
                         }        
                     }
                 } else if (current == 'cross') {
-                    for (let i = 0; i < cactusLevel.reality.length; i++) {
-                        if (cell.dataset.pos == i + 1) {
-                            reality = cactusLevel.reality[i];
+                    for (let i = 20; i < cactusLevel.length; i++) {
+                        if (cell.dataset.pos == i - 19) {
+                            reality = cactusLevel[i];
                         }
                     }
                     if (reality == '0') {
@@ -190,6 +191,26 @@ boxCells.forEach((cell) => {
                             }, 2800);
                         }       
                     }
+                } else if (current == 'hint') {
+                    if (hints !== 0) {
+                        for (let i = 20; i < cactusLevel.length; i++) {
+                            if (cell.dataset.pos == i - 19) {
+                                reality = cactusLevel[i];
+                            }
+                        }
+                        if (reality == '1') {
+                            cell.classList.add('box-cell__block');
+                        } else if (reality == '0') {
+                            const crossCellClone = crossCell.cloneNode(true);
+                            cell.appendChild(crossCellClone);
+                            cell.classList.add('hit');
+                        }
+                        hints--;
+                        hintSpan.innerHTML = hints;
+                    }
+                    else {
+                        alert('you are out of hints');
+                    }
                 }
             } 
         } else {
@@ -200,18 +221,30 @@ boxCells.forEach((cell) => {
 
 // switcher
 
-block.style.background = '#fff';
+block.classList.add('bg-white');
 
 cross.addEventListener('click', () => {
-    cross.style.background = '#fff';
-    block.style.background = '';
+    cross.classList.add('bg-white')
+    block.classList.remove('bg-white');
     current = 'cross';
 });
 
 block.addEventListener('click', () => {
-    cross.style.background = '';
-    block.style.background = '#fff';
+    cross.classList.remove('bg-white');
+    block.classList.add('bg-white');
     current = 'block';
+});
+
+// hint 
+
+const hint   = document.querySelector('.hint'),
+    hintSpan = hint.querySelector('span');
+
+hint.addEventListener('click', () => {
+    block.classList.remove('bg-white');
+    cross.classList.remove('bg-white');
+    hint.classList.add('bg-white');
+    current = 'hint';
 });
 
 // massive of numbers
@@ -223,40 +256,36 @@ const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'
 
 for (let i = 0; i < numbersLeft.length; i++) {
     numbersLeft[i].dataset.pos = i + 1;
-    for (let key in cactusLevel.numbersLeftObj) {
-        if (numbersLeft[i].dataset.pos == key) {
-            numbersLeft[i].innerHTML = cactusLevel.numbersLeftObj[key];
-        }
+    for (let i = 0; i < 10; i++) {
+        numbersLeft[i].innerHTML = cactusLevel[i];
     }
 }
 
 for (let i = 0; i < numbersTop.length; i++) {
     numbersTop[i].dataset.pos = i + 1;
-    for (let key in cactusLevel.numbersTopObj) {
-        if (numbersTop[i].dataset.pos == key) {
-            numbersTop[i].innerHTML = cactusLevel.numbersTopObj[key];
-        }
+    for (let i = 10; i < 20; i++) {
+        numbersTop[i - 10].innerHTML = cactusLevel[i];
     }
 }
 
-let j = 0;
+// restart
 
 const refreshFunc = () => {
     boxCells.forEach((cell) => {
         cell.className = 'box-cell';
         modal.classList.remove('game-over__animation');
         counter = 0;
-        modal.style.opacity = '0';
+        modal.style.opacity = '';
         modal.style.display = '';
         if (cell.hasChildNodes()) {
-            const crossCellClone = cell.querySelector('.cross-cell');   
+            const crossCellClone = cell.querySelector('.cross-cell');
             crossCellClone.parentNode.removeChild(crossCellClone);
         }
-        const heart = document.querySelector('.heart');
-        if (j !== 3) { 
+
+        for (let i = 0; i < 3; i++) {
+            const heart = document.querySelector('.heart');
             if (attempts.hasChildNodes()) {
                 attempts.removeChild(heart);
-                j++;
             }
         }
     });
