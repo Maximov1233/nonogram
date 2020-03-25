@@ -161,7 +161,6 @@ body {
                     align-items: center;
                     width: 200px;
                     height: 100px;
-    
                     border-radius: 65px;
                     border: 3px solid #87888B;
                     background: #A5A5A5;
@@ -265,7 +264,6 @@ body {
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 99;
-            display: none;
             opacity: 0;
 
             @keyframes gameOver {
@@ -331,6 +329,15 @@ body {
                 }
             }
         }
+
+        .hide {
+            display: none;
+        }
+
+        .op-1 {
+            opacity: 1;
+        }
+
         .game-over__animation {
             animation: gameOver 1.4s;
         }

@@ -370,7 +370,6 @@ body .container .game-over__modal {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   z-index: 99;
-  display: none;
   opacity: 0;
 }
 
@@ -449,6 +448,14 @@ body .container .game-over__modal .modal-restart button {
   cursor: pointer;
   font-size: 20px;
   color: #057BF9;
+}
+
+body .container .hide {
+  display: none;
+}
+
+body .container .op-1 {
+  opacity: 1;
 }
 
 body .container .game-over__animation {

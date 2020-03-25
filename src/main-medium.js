@@ -219,22 +219,6 @@ boxCells.forEach((cell) => {
     });
 });
 
-// switcher
-
-block.classList.add('bg-white');
-
-cross.addEventListener('click', () => {
-    cross.classList.add('bg-white')
-    block.classList.remove('bg-white');
-    current = 'cross';
-});
-
-block.addEventListener('click', () => {
-    cross.classList.remove('bg-white');
-    block.classList.add('bg-white');
-    current = 'block';
-});
-
 // hint 
 
 const hint   = document.querySelector('.hint'),
@@ -247,12 +231,51 @@ hint.addEventListener('click', () => {
     current = 'hint';
 });
 
-// massive of numbers
+// switcher
+
+block.classList.add('bg-white');
+
+cross.addEventListener('click', () => {
+    hint.classList.remove('bg-white');
+    cross.classList.add('bg-white')
+    block.classList.remove('bg-white');
+    current = 'cross';
+});
+
+block.addEventListener('click', () => {
+    hint.classList.remove('bg-white');
+    cross.classList.remove('bg-white');
+    block.classList.add('bg-white');
+    current = 'block';
+});
+
+// adding numbers
+
+const boxNumbersLeft = document.querySelector('.box-numbers__left'),
+    boxNumbersTop = document.querySelector('.box-numbers__top'),
+    boxNumber = document.createElement('div'),
+    boxNumberText = document.createElement('p');
+
+boxNumber.classList.add('box-number');
+
+for (let i = 0; i < 10; i++) {
+    const boxNumberClone = boxNumber.cloneNode(true);
+    boxNumbersLeft.appendChild(boxNumberClone);
+    const boxNumberTextClone = boxNumberText.cloneNode(true);
+    boxNumberClone.appendChild(boxNumberTextClone);
+}
+
+for (let i = 0; i < 10; i++) {
+    const boxNumberClone = boxNumber.cloneNode(true);
+    boxNumbersTop.appendChild(boxNumberClone);
+    const boxNumberTextClone = boxNumberText.cloneNode(true);
+    boxNumberClone.appendChild(boxNumberTextClone);
+}
+
+// filling numbers
 
 const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'),
     numbersTop = document.querySelectorAll('.box-numbers__top .box-number p');
-
-// filling numbers
 
 for (let i = 0; i < numbersLeft.length; i++) {
     numbersLeft[i].dataset.pos = i + 1;
