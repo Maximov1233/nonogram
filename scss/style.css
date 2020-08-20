@@ -42,6 +42,29 @@ body .box-cell__block {
   background: #334861;
 }
 
+body .box-cell__block.box-animation {
+  -webkit-animation: boxAnimation 0.5s;
+          animation: boxAnimation 0.5s;
+}
+
+@-webkit-keyframes boxAnimation {
+  0% {
+    background: #334861;
+  }
+  50% {
+    background: #3163AE;
+  }
+}
+
+@keyframes boxAnimation {
+  0% {
+    background: #334861;
+  }
+  50% {
+    background: #3163AE;
+  }
+}
+
 body .refresher {
   width: 100%;
   height: 2000px;
@@ -121,6 +144,8 @@ body .container .box-cell {
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid #C1C5D1;
+  position: relative;
+  cursor: pointer;
 }
 
 body .container .box-cell.border {
@@ -194,6 +219,8 @@ body .container .box-number.full-line {
   color: #c3c3c3;
   background: #fff;
   border-color: #EBEFF8;
+  -webkit-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
 }
 
 body .container .box .cross-cell {
@@ -223,6 +250,11 @@ body .container .box .cross-cell .stick-cell {
 body .container .box .cross-cell .stick-cell:first-child {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
+}
+
+body .container .switch,
+body .container .hint {
+  cursor: pointer;
 }
 
 body .container .tools {
@@ -422,8 +454,8 @@ body .container .game-over__modal {
 }
 
 body .container .game-over__modal .modal {
-  width: 300px;
-  height: 300px;
+  width: 700px;
+  height: 700px;
   background: #fff;
   border-radius: 8px;
   display: -webkit-box;
@@ -483,5 +515,9 @@ body .container .game-over__modal .modal-restart button {
 body .container .game-over__animation {
   -webkit-animation: gameOver 1.4s;
           animation: gameOver 1.4s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 1;
 }
 /*# sourceMappingURL=style.css.map */

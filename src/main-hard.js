@@ -1,77 +1,97 @@
 // importing files
 
-import {pokemonLevel} from './levels.js';
+import {
+    pokemonLevel
+} from './levels.js';
 
 // adding cells into box
 
 const box = document.querySelector('.box');
 
-for (let i = 0; i < 225; i++) {
+for (let i = 0; i < pokemonLevel.reality.length; i++) {
     const boxCell = document.createElement('div');
     boxCell.classList.add('box-cell');
-    box.appendChild(boxCell);
     boxCell.dataset.pos = i + 1;
+    box.append(boxCell);
 }
-const boxCells = box.querySelectorAll('.box-cell');
 
-// adding switcher options
+const boxCells = box.querySelectorAll('.box-cell'),
+    boxCellBlockHTML = '<div class="box-cell__block"></div>';
 
 let current = 'block';
 
 const cross = document.querySelector('.cross-wrap'),
     block = document.querySelector('.block-wrap'),
-    stickCell = document.createElement('div'),
-    crossCell = document.createElement('div');
+    hint = document.querySelector('.hint'),
+    hintSpan = hint.querySelector('span'),
+    switchers = [block, cross, hint];
 
-crossCell.classList.add('cross-cell');
-stickCell.classList.add('stick-cell');
-
-crossCell.appendChild(stickCell);
-const stickCellClone = stickCell.cloneNode(true);
-crossCell.appendChild(stickCellClone);
+block.classList.add('bg-white');
 
 // adding attempts 
 
 const attempts = document.querySelector('.attempts'),
-    heart = document.createElement('div'),
-    imgNotClicked = document.createElement('img'),
-    imgWrongClick = 'http://127.0.0.1:5501/img/heart.svg';
+    imgNotClicked = './img/like.svg',
+    imgWrongClick = './img/heart.svg';
 
 let counter = 0;
 
-heart.classList.add('heart');
+// adding numbers
 
-imgNotClicked.src = 'http://127.0.0.1:5501/img/like.svg';
+const boxNumbersLeft = document.querySelector('.box-numbers__left'),
+    boxNumbersTop = document.querySelector('.box-numbers__top');
 
-const addingHearts = () => {
-    for (let i = 0; i < 3; i++) {
-        const heartClone = heart.cloneNode(true);
-        attempts.appendChild(heartClone);
-        const imgNotClickedClone = imgNotClicked.cloneNode(true);
-        imgNotClickedClone.dataset.pos = i;
-        heartClone.appendChild(imgNotClickedClone);
-    }
+for (let i = 0; i < pokemonLevel.numbersLeft.length; i++) {
+    const boxNumber = document.createElement('div'),
+        boxNumberText = document.createElement('p');
+    boxNumber.classList.add('box-number');
+    boxNumber.append(boxNumberText);
+    boxNumbersLeft.append(boxNumber);
 }
 
-addingHearts();
+for (let i = 0; i < pokemonLevel.numbersTop.length; i++) {
+    const boxNumber = document.createElement('div'),
+        boxNumberText = document.createElement('p');
+    boxNumber.classList.add('box-number');
+    boxNumber.append(boxNumberText);
+    boxNumbersTop.append(boxNumber);
+}
+
+// filling numbers
+
+const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'),
+    numbersTop = document.querySelectorAll('.box-numbers__top .box-number p'),
+    boxNumbers = document.querySelectorAll('.box-number');
+
+for (let i = 0; i < numbersLeft.length; i++) {
+    numbersLeft[i].dataset.pos = i + 1;
+    numbersLeft[i].innerHTML = pokemonLevel.numbersLeft[i];
+}
+
+for (let i = 0; i < numbersTop.length; i++) {
+    numbersTop[i].dataset.pos = i + 1;
+    numbersTop[i].innerHTML = pokemonLevel.numbersTop[i];
+}
 
 // giving coordinates
 
 let x = 1,
-    y = 1;
+    y = 1,
+    line = 1;
 
 for (let i = 0; i < boxCells.length; i++) {
     boxCells[i].dataset.x = x;
     boxCells[i].dataset.y = y;
+    boxCells[i].dataset.line = line;
     x++;
     if (x === 16) {
+        boxCells[i].dataset.line = line;
+        line++;
         x = 1;
         boxCells[i].dataset.y = y;
         y++;
     }
 }
-
-// click
 
 const refresher = document.createElement('div'),
     modal = document.querySelector('.game-over__modal');
@@ -79,141 +99,219 @@ const refresher = document.createElement('div'),
 refresher.classList.add('refresher');
 
 let reality,
-hints = 10;
+    hints = 20;
+
+const addingHearts = () => {
+    for (let i = 0; i < 3; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        const img = document.createElement('img');
+        img.src = imgNotClicked;
+        img.dataset.pos = i;
+        heart.append(img);
+        attempts.append(heart);
+    }
+};
+
+const LineAnimation = (arr, coordinate, x, y) => {
+    document.body.append(refresher);
+    arr.reverse();
+    for (let i = 0; i < arr.length; i++) {
+        setTimeout(() => {
+            arr[i].classList.add('box-animation');
+        }, i * 25);
+        if (coordinate === 'vertical') {
+            numbersLeft[y - 1].parentNode.classList.add('full-line');
+        } else {
+            numbersTop[x - 1].parentNode.classList.add('full-line');
+        }
+        setTimeout(() => {
+            refresher.remove();
+            arr[i].classList.remove('box-animation');
+        }, 600);
+    }
+};
+
+const lineCheck = (cell) => {
+    let x = cell.dataset.x,
+        y = cell.dataset.y,
+        arrX = [],
+        arrY = [];
+
+    for (let i = 0; i < boxCells.length; i++) {
+        if (boxCells[i].dataset.y === y && boxCells[i].innerHTML === boxCellBlockHTML) {
+            arrX.push(boxCells[i].firstChild);
+        }
+    }
+
+    for (let i = 0; i < boxCells.length; i++) {
+        if (boxCells[i].dataset.x === x && boxCells[i].innerHTML === boxCellBlockHTML) {
+            arrY.push(boxCells[i].firstChild);
+        }
+    }
+
+    //console.log(arrX);
+    //console.log(arrY);
+
+    const boxNumberSum = (str) => {
+        let sum = 0,
+            arr = [...str];
+        if (str.length <= 2) {
+            sum = str;
+        } else {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] !== ' ') {
+                    sum += parseInt(arr[i]);
+                }
+            }
+        }
+        return sum;
+    };
+
+    if (arrX.length === parseInt(boxNumberSum(numbersLeft[y - 1].textContent))) {
+        LineAnimation(arrX, 'vertical', x, y);
+    }
+    if (arrY.length === parseInt(boxNumberSum(numbersTop[x - 1].textContent))) {
+        LineAnimation(arrY, 'horizontal', x, y);
+    }
+};
+
+const boxCellBlock = (cell) => {
+    const innerCell = document.createElement('div');
+    innerCell.classList.add('box-cell__block');
+    cell.classList.add('border');
+    cell.append(innerCell);
+
+    let cellLeft,
+        cellRight,
+        cellTop,
+        cellBottom;
+
+    for (let i = 0; i < boxCells.length - 1; i++) {
+        if (parseInt(boxCells[i].dataset.pos) === parseInt(cell.dataset.pos) - 1 && boxCells[i].dataset.x !== '15') {
+            cellLeft = boxCells[i];
+        } else if (parseInt(boxCells[i].dataset.pos) === parseInt(cell.dataset.pos) + 1 && boxCells[i].dataset.x !== '1') {
+            cellRight = boxCells[i];
+        } else if (parseInt(boxCells[i].dataset.y) === parseInt(cell.dataset.y) - 1 && cell.dataset.y !== '1' && boxCells[i].dataset.x === cell.dataset.x) {
+            cellTop = boxCells[i];
+        } else if (parseInt(boxCells[i].dataset.y) === parseInt(cell.dataset.y) + 1 && cell.dataset.y !== '10' && boxCells[i].dataset.x === cell.dataset.x) {
+            cellBottom = boxCells[i];
+        }
+    }
+
+    if (cellLeft) {
+        cellLeft.classList.add('border-right');
+    }
+    if (cellRight) {
+        cellRight.classList.add('border-left');
+    }
+    if (cellTop) {
+        cellTop.classList.add('border-bottom');
+    }
+    if (cellBottom) {
+        cellBottom.classList.add('border-top');
+    }
+
+    cell.classList.add('hit');
+};
+
+const findingReality = (cell) => {
+    for (let i = 0; i < pokemonLevel.reality.length; i++) {
+        if (cell.dataset.pos === (i + 1).toString()) {
+            reality = pokemonLevel.reality[i];
+            break;
+        }
+    }
+};
+
+const crossCellBlock = (cell) => {
+    const crossCell = `
+    <div class="cross-cell">
+        <div class="stick-cell"></div>
+        <div class="stick-cell"></div>
+    </div>
+    `;
+    cell.innerHTML = crossCell;
+    cell.classList.add('hit');
+};
+
+const wrongClick = (cell, reality) => {
+    document.body.append(refresher);
+    cell.classList.add('wrong-click');
+    setTimeout(() => {
+        const images = document.querySelectorAll('.heart img');
+        for (let i = 0; i < images.length; i++) {
+            if (parseInt(images[i].dataset.pos) === counter) {
+                images[i].src = imgWrongClick;
+            }
+        }
+        if (reality === box) {
+            boxCellBlock(cell);
+        } else {
+            crossCellBlock(cell);
+        }
+        cell.classList.remove('wrong-click');
+        counter++;
+        refresher.remove();
+    }, 1700);
+
+    if (counter === 2) {
+        setTimeout(() => {
+            modal.classList.add('game-over__animation');
+        }, 800);
+    }
+};
+
+const refreshFunc = () => {
+    boxCells.forEach((cell) => {
+        cell.className = 'box-cell';
+        cell.removeAttribute('style');
+        boxNumbers.forEach((box) => {
+            box.classList.remove('full-line');
+        });
+        modal.classList.remove('game-over__animation');
+        counter = 0;
+        cell.textContent = '';
+        attempts.textContent = '';
+    });
+};
+
+addingHearts();
+
+// click
 
 boxCells.forEach((cell) => {
-    // if (cell.dataset.y == 10 && cell.dataset.x == 10) {
-    //     cell.style.borderBottom = '3px solid black';
-    //     cell.style.borderRight = 'unset';
-    //     cell.style.zIndex = '99';
-    // } else if (cell.dataset.y == 5 && cell.dataset.x == 10) {
-    //     cell.style.borderBottom = '3px solid black';
-    //     cell.style.zIndex = '99';
-    //     cell.style.borderRight = 'unset';
-    // } else if (cell.dataset.x == 5 && cell.dataset.y == 10) {
-    //     cell.style.borderRight = '3px solid black';
-    //     cell.style.zIndex = '99';
-    //     cell.style.borderBottom = '3px solid black';
-    // } else if (cell.dataset.x == 10) {
-    //     cell.style.borderRight = 'unset';
-    // } else if (cell.dataset.y == 10) {
-    //     cell.style.borderBottom = '3px solid black';
-    //     cell.style.zIndex = '99';
-    // }else if (cell.dataset.x == 5 && cell.dataset.y == 5) {
-    //     cell.style.borderRight = '3px solid black';
-    //     cell.style.borderBottom = '3px solid black';
-    //     cell.style.zIndex = '99';
-    // }  else if (cell.dataset.y == 5) {
-    //     cell.style.borderBottom = '3px solid black';
-    //     cell.style.zIndex = '99';
-    // } else if (cell.dataset.x == 5) {
-    //     cell.style.borderRight = '3px solid black';
-    //     cell.style.zIndex = '99';
-    // } 
     cell.addEventListener('click', () => {
-        console.log(current);
+
         if (counter !== 3) {
             if (!cell.classList.contains('hit')) {
-
                 if (current === 'block') {
-                    for (let i = 30; i < pokemonLevel.length + 30; i++) {
-                        if (cell.dataset.pos == i - 29) {
-                            reality = pokemonLevel[i];
-                            console.log(reality);
-                        }
-                    }
-                    if (reality == '1') {
-                        cell.classList.add('box-cell__block');
-                        // if (cell.dataset.x == 5 && cell.dataset.y == 5) {
-                        //     cell.style.borderRight = '3px solid black';
-                        //     cell.style.borderBottom = '3px solid black';
-                        // } else if (cell.dataset.y == 5) {
-                        //     cell.style.borderBottom = '3px solid black';
-                        // } else if (cell.dataset.x == 5) {
-                        //     cell.style.borderRight = '3px solid black';
-                        // }
-                        cell.classList.add('hit');
-                    } else if (reality == '0') {
-                        document.body.appendChild(refresher);
-                        cell.classList.add('wrong-click');
-                        setTimeout(() => {
-                            const imagesInGame = document.querySelectorAll('.heart img');
-                            for (let i = 0; i < imagesInGame.length; i++) {
-                                if (imagesInGame[i].dataset.pos == counter) {
-                                    imagesInGame[i].src = imgWrongClick;
-                                }
-                            }
-                            const crossCellClone = crossCell.cloneNode(true);
-                            cell.appendChild(crossCellClone);
-                            cell.classList.add('hit');
-                            cell.classList.remove('wrong-click');
-                            counter++;
-                            refresher.remove();
-                        }, 1700);
-
-                        if (counter === 2) {
-                            setTimeout(() => {
-                                modal.classList.remove('hide');
-                                modal.classList.add('game-over__animation', 'op-1');
-                            }, 2800);
-                        }
-                    }  else {
-                        alert('invalid value of reality');
-                    }
-                } else if (current == 'cross') {
-                    for (let i = 30; i < pokemonLevel.length + 30; i++) {
-                        if (cell.dataset.pos == i - 29) {
-                            reality = pokemonLevel[i];
-                        }
-                    }
-                    if (reality == '0') {
-                        const crossCellClone = crossCell.cloneNode(true);
-                        cell.appendChild(crossCellClone);
-                        cell.classList.add('hit');
-                    } else if (reality == '1') {
-                        document.body.appendChild(refresher);
-                        cell.classList.add('wrong-click');
-                        setTimeout(() => {
-                            const imagesInGame = document.querySelectorAll('.heart img');
-                            for (let i = 0; i < imagesInGame.length; i++) {
-                                if (imagesInGame[i].dataset.pos == counter) {
-                                    imagesInGame[i].src = imgWrongClick;
-                                }
-                            }
-                            cell.classList.add('box-cell__block');
-                            cell.classList.add('hit');
-                            cell.classList.remove('wrong-click');
-                            counter++;
-                            refresher.remove();
-                        }, 1800);
-
-                        if (counter === 2) {
-                            setTimeout(() => {
-                                modal.classList.remove('hide');
-                                modal.classList.add('game-over__animation', 'op-1');
-                            }, 2800);
-                        }
+                    findingReality(cell);
+                    if (reality === 1) {
+                        boxCellBlock(cell);
+                        lineCheck(cell);
                     } else {
-                        alert('invalid value of reality');
+                        wrongClick(cell, cross);
                     }
-                } else if (current == 'hint') {
+                } else if (current === 'cross') {
+                    findingReality(cell);
+                    if (reality === 0) {
+                        crossCellBlock(cell);
+                    } else {
+                        wrongClick(cell, box);
+                    }
+                } else if (current === 'hint') {
                     if (hints !== 0) {
-                        for (let i = 30; i < pokemonLevel.length + 30; i++) {
-                            if (cell.dataset.pos == i - 29) {
-                                reality = pokemonLevel[i];
-                            }
-                        }
-                        if (reality == '1') {
-                            cell.classList.add('box-cell__block');
-                        } else if (reality == '0') {
-                            const crossCellClone = crossCell.cloneNode(true);
-                            cell.appendChild(crossCellClone);
-                            cell.classList.add('hit');
+                        findingReality(cell);
+                        if (reality === 1) {
+                            boxCellBlock(cell);
+                            lineCheck(cell);
+                        } else if (reality === 0) {
+                            crossCellBlock(cell);
                         }
                         hints--;
                         hintSpan.innerHTML = hints;
-                    }
-                    else {
+                    } else {
                         alert('you are out of hints');
                     }
                 }
@@ -224,100 +322,31 @@ boxCells.forEach((cell) => {
     });
 });
 
-// hint 
-
-const hint   = document.querySelector('.hint'),
-    hintSpan = hint.querySelector('span'),
-
-    refreshingVariants = () => {
-    const variants = [block, cross, hint];
-    variants.forEach((variant) => {
-        variant.classList.remove('bg-white');
-    });
-};
-
-hint.addEventListener('click', () => {
-    refreshingVariants();
-    hint.classList.add('bg-white');
-    current = 'hint';
-});
-
 // switcher
 
-block.classList.add('bg-white');
-
-cross.addEventListener('click', () => {
-    refreshingVariants();
-    cross.classList.add('bg-white');
-    current = 'cross';
+switchers.forEach((switcher) => {
+    switcher.addEventListener('click', () => {
+        for (let i = 0; i < switchers.length; i++) {
+            switchers[i].classList.remove('bg-white');
+        }
+        switcher.classList.add('bg-white');
+        switch (switcher) {
+            case block:
+                current = 'block';
+                break;
+            case cross:
+                current = 'cross';
+                break;
+            case hint:
+                current = 'hint';
+                break;
+        }
+    });
 });
-
-block.addEventListener('click', () => {
-    refreshingVariants();
-    block.classList.add('bg-white');
-    current = 'block';
-});
-
-// adding numbers
-
-const boxNumbersLeft = document.querySelector('.box-numbers__left'),
-    boxNumbersTop    = document.querySelector('.box-numbers__top'),
-    boxNumber        = document.createElement('div'),
-    boxNumberText    = document.createElement('p');
-
-boxNumber.classList.add('box-number');
-
-for (let i = 0; i < 15; i++) {
-    const boxNumberClone   = boxNumber.cloneNode(true),
-        boxNumberTextClone = boxNumberText.cloneNode(true);
-    boxNumbersLeft.appendChild(boxNumberClone);
-    boxNumberClone.appendChild(boxNumberTextClone);
-}
-
-for (let i = 0; i < 15; i++) {
-    const boxNumberClone   = boxNumber.cloneNode(true),
-        boxNumberTextClone = boxNumberText.cloneNode(true);
-    boxNumbersTop.appendChild(boxNumberClone);
-    boxNumberClone.appendChild(boxNumberTextClone);
-}
-
-// filling numbers
-
-const numbersLeft = document.querySelectorAll('.box-numbers__left .box-number p'),
-    numbersTop    = document.querySelectorAll('.box-numbers__top .box-number p');
-
-for (let i = 0; i < numbersLeft.length; i++) {
-    numbersLeft[i].dataset.pos = i + 1;
-    for (let i = 0; i < 15; i++) {
-        numbersLeft[i].innerHTML = pokemonLevel[i];
-    }
-}
-
-for (let i = 0; i < numbersTop.length; i++) {
-    numbersTop[i].dataset.pos = i + 1;
-    for (let i = 15; i < 30; i++) {
-        numbersTop[i - 15].innerHTML = pokemonLevel[i];
-    }
-}
 
 // restart
 
-const restart = document.querySelector('.restart-button'),
-
-  refreshFunc = () => {
-    boxCells.forEach((cell) => {
-        cell.className = 'box-cell';
-        modal.className = 'game-over__modal hide';
-        counter = 0;
-        while (cell.firstChild) {
-            cell.removeChild(cell.firstChild);
-        }
-
-        while (attempts.firstChild) {
-            attempts.removeChild(attempts.firstChild);
-        }
-    });
-};
+const restart = document.querySelector('.restart-button');
 
 restart.addEventListener('click', () => {
     refreshFunc();

@@ -9,8 +9,6 @@ body {
         animation: wrongClick 2.5s;
     }
 
-    
-
     @keyframes wrongClick {
         0% {
             background: transparent;
@@ -29,10 +27,21 @@ body {
         width: 55px;
         height: 55px;
         background: #334861;
-        // border: 1px solid #202E43;
-    }
 
-    
+        &.box-animation {
+            animation: boxAnimation 0.5s;
+        }
+
+        @keyframes boxAnimation {
+            0% {
+                background: #334861;
+            }
+
+            50% {
+                background: #3163AE;
+            }
+        }
+    }
 
     .refresher {
         width: 100%;
@@ -51,8 +60,6 @@ body {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
-        
 
         .attempts {
             display: flex;
@@ -90,7 +97,8 @@ body {
                 justify-content: center;
                 align-items: center;
                 border: 1px solid #C1C5D1;
-                
+                position: relative;
+                cursor: pointer;
                 &.border {
                     border-color: #202E43;
                 }
@@ -98,20 +106,19 @@ body {
                 &.border-right {
                     border-right-color: #202E43;
                 }
-            
+
                 &.border-left {
                     border-left-color: #202E43;
                 }
-            
+
                 &.border-top {
                     border-top-color: #202E43;
                 }
-            
+
                 &.border-bottom {
                     border-bottom-color: #202E43;
                 }
             }
-
 
             &-number {
                 width: 100px;
@@ -142,14 +149,14 @@ body {
 
                     }
                 }
+
                 &.full-line {
                     color: #c3c3c3;
                     background: #fff;
-                    border-color:#EBEFF8;
+                    border-color: #EBEFF8;
+                    transition: 1s ease-in-out;
                 }
             }
-
-            
 
             .cross-cell {
                 width: inherit;
@@ -173,17 +180,24 @@ body {
             }
         }
 
+        .switch,
+        .hint {
+            cursor: pointer;
+        }
+
         .tools {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 30px;
+
             .switcher {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding-left: 105px;
                 flex-basis: 50%;
+
                 .switch {
                     position: relative;
                     display: flex;
@@ -191,11 +205,11 @@ body {
                     align-items: center;
                     width: 200px;
                     height: 100px;
-    
+
                     border-radius: 65px;
                     border: 3px solid #87888B;
                     background: #A5A5A5;
-    
+
                     .cross-wrap,
                     .block-wrap {
                         width: 100px;
@@ -204,7 +218,7 @@ body {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-    
+
                         .stick {
                             position: absolute;
                             width: 70px;
@@ -212,12 +226,12 @@ body {
                             background: #334861;
                             border-radius: 50px;
                             transform: rotate(-45deg);
-    
+
                             &:first-child {
                                 transform: rotate(45deg);
                             }
                         }
-    
+
                         .block {
                             width: 50px;
                             height: 50px;
@@ -225,19 +239,19 @@ body {
                             border-radius: 3px;
                         }
                     }
-    
+
                     .block-wrap {
                         background: transparent;
                     }
-    
+
                     .bg-white {
                         background: #fff;
                     }
-    
+
                     input {
                         display: none;
                     }
-    
+
                     input:checked+.cross {
                         background: #000;
                     }
@@ -256,12 +270,14 @@ body {
                 margin-left: 50px;
                 position: relative;
                 cursor: pointer;
+
                 .bulb {
                     img {
                         width: 45px;
                         height: 45px;
                     }
                 }
+
                 .amount {
                     position: absolute;
                     top: 0;
@@ -273,11 +289,13 @@ body {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+
                     span {
                         color: #fff;
                     }
                 }
             }
+
             .bg-white {
                 background: #fff;
             }
@@ -302,24 +320,21 @@ body {
                 0% {
                     opacity: 0;
                 }
+
                 100% {
                     opacity: 1;
                 }
             }
 
             .modal {
-                width: 300px;
-                height: 300px;
+                width: 700px;
+                height: 700px;
                 background: #fff;
                 border-radius: 8px;
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
                 flex-direction: column;
-
-                &-text {}
-
-                &-heart {}
 
                 &-heart {
                     background-color: red;
@@ -361,13 +376,14 @@ body {
                         font-size: 20px;
                         color: #057BF9;
                     }
-                    
                 }
             }
         }
+
         .game-over__animation {
             animation: gameOver 1.4s;
+            display: flex;
+            opacity: 1;
         }
-
     }
 }
